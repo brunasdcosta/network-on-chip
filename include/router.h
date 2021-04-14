@@ -8,23 +8,23 @@ SC_MODULE(Router) {
     int id;
 
     // Buffer.
-    sc_signal buffer_p1, buffer_p2, buffer_p3, buffer_p4;
+    sc_signal<sc_uint<5>> buffer_p1, buffer_p2, buffer_p3, buffer_p4;
 
     // Canal de leitura e escrita local.
-    sc_in local_channel_in;
-    sc_out local_channel_out;
+    sc_in<sc_uint<32>> local_channel_in;
+    sc_out<sc_uint<32>> local_channel_out;
 
     // Canais de leitura de outros roteadores.
-    sc_in north_channel_in;
-    sc_in south_channel_in;
-    sc_in east_channel_in;
-    sc_in west_channel_in;
+    sc_in<sc_uint<32>> north_channel_in;
+    sc_in<sc_uint<32>> south_channel_in;
+    sc_in<sc_uint<32>> east_channel_in;
+    sc_in<sc_uint<32>> west_channel_in;
 
     // Canais de escrita em outros roteadores.
-    sc_out north_channel_out;
-    sc_out south_channel_out;
-    sc_out east_channel_out;
-    sc_out west_channel_out;
+    sc_out<sc_uint<32>> north_channel_out;
+    sc_out<sc_uint<32>> south_channel_out;
+    sc_out<sc_uint<32>> east_channel_out;
+    sc_out<sc_uint<32>> west_channel_out;
 
     // Sinais para indicar que o roteador quer escrever nos canais.
     bool write_north, write_south, write_east, write_weast;
