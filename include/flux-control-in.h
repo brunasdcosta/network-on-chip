@@ -21,6 +21,8 @@ SC_MODULE(HandshakeIN) {
             else {
                 can_receive.write(true);
             }
+        } else{
+            can_receive.write(false);
         }
 
     }

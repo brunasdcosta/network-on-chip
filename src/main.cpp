@@ -8,5 +8,14 @@
 #include "../include/router.h"
 
 int sc_main(int argc, char* argv[]) {
+
+
+    std::cout << "Iniciando...\n";
+
+    Router router("Router");
+    router.run();
+
+    std::cout << "Finalizado!\n";
+
     return 0;
 }

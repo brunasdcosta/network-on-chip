@@ -12,7 +12,7 @@ SC_MODULE(HandshakeOUT) {
     void rules(){
 
         // Apenas permite enviar o sinal se, e somente se, ele quer enviar e se pode enviar
-        bool cs = can_ship.read():
+        bool cs = can_ship.read();
         bool request = request_to_shipping.read();
 
         if(request && cs){
