@@ -13,7 +13,9 @@ int sc_main(int argc, char* argv[]) {
     std::cout << "Iniciando...\n";
 
     Router router("Router");
-    router.run();
+    // router.initilize();
+    // router.run();
+    sc_start();
 
     std::cout << "Finalizado!\n";
 

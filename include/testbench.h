@@ -10,7 +10,7 @@ SC_MODULE(Testbench) {
     void do_tb() {
 
         // O algoritmo abaixo foi utilizado para testar o buffer.
-
+        std::cout << "AQ\n";
         x.write(2);
         x_signal.write(1);
         y.write(0);
