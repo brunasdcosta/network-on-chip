@@ -47,7 +47,7 @@ SC_MODULE(RoutingXY) {
     }
 
     SC_CTOR(RoutingXY) {
-        SC_METHOD(rules);
+        SC_THREAD(rules);
         sensitive << x_in << y_in << x_sign_in << y_sign_in;
     }
 

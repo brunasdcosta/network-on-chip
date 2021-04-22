@@ -87,9 +87,9 @@ SC_MODULE(Router) {
     void initialize(){
         init_buffers();
         init_routings();
-        init_arbitrations();
-        init_flux_controls_out();
-        init_flux_controls_in();
+        // init_arbitrations();
+        // init_flux_controls_out();
+        // init_flux_controls_in();
     }
 
     void init_buffers(){
@@ -118,10 +118,10 @@ SC_MODULE(Router) {
         north_buffer.read_(north_can_receive);
         north_buffer.write_(north_buffer_write);
         north_buffer.is_full(north_buffer_full);
-        north_buffer.x_out(local_x_out);
-        north_buffer.y_out(local_y_out);
-        north_buffer.x_sign_out(local_x_sign_out);
-        north_buffer.y_sign_out(local_y_sign_out);
+        north_buffer.x_out(north_x_out);
+        north_buffer.y_out(north_y_out);
+        north_buffer.x_sign_out(north_x_sign_out);
+        north_buffer.y_sign_out(north_y_sign_out);
         north_buffer.message_out(north_message_out);
 
         Buffer south_buffer("south_buffer");
@@ -133,10 +133,10 @@ SC_MODULE(Router) {
         south_buffer.read_(south_can_receive);
         south_buffer.write_(south_buffer_write);
         south_buffer.is_full(south_buffer_full);
-        south_buffer.x_out(local_x_out);
-        south_buffer.y_out(local_y_out);
-        south_buffer.x_sign_out(local_x_sign_out);
-        south_buffer.y_sign_out(local_y_sign_out);
+        south_buffer.x_out(south_x_out);
+        south_buffer.y_out(south_y_out);
+        south_buffer.x_sign_out(south_x_sign_out);
+        south_buffer.y_sign_out(south_y_sign_out);
         south_buffer.message_out(south_message_out);
 
         Buffer east_buffer("east_buffer");
@@ -148,10 +148,10 @@ SC_MODULE(Router) {
         east_buffer.read_(east_can_receive);
         east_buffer.write_(east_buffer_write);
         east_buffer.is_full(east_buffer_full);
-        east_buffer.x_out(local_x_out);
-        east_buffer.y_out(local_y_out);
-        east_buffer.x_sign_out(local_x_sign_out);
-        east_buffer.y_sign_out(local_y_sign_out);
+        east_buffer.x_out(east_x_out);
+        east_buffer.y_out(east_y_out);
+        east_buffer.x_sign_out(east_x_sign_out);
+        east_buffer.y_sign_out(east_y_sign_out);
         east_buffer.message_out(east_message_out);
 
         Buffer west_buffer("west_buffer");
@@ -163,49 +163,50 @@ SC_MODULE(Router) {
         west_buffer.read_(west_can_receive);
         west_buffer.write_(west_buffer_write);
         west_buffer.is_full(west_buffer_full);
-        west_buffer.x_out(local_x_out);
-        west_buffer.y_out(local_y_out);
-        west_buffer.x_sign_out(local_x_sign_out);
-        west_buffer.y_sign_out(local_y_sign_out);
+        west_buffer.x_out(west_x_out);
+        west_buffer.y_out(west_y_out);
+        west_buffer.x_sign_out(west_x_sign_out);
+        west_buffer.y_sign_out(west_y_sign_out);
         west_buffer.message_out(west_message_out);
+
     }
 
     void init_routings(){
 
         RoutingXY local_routing("local_routing");
-        local_routing.x_in(local_x_out);
-        local_routing.y_in(local_y_out);
-        local_routing.x_sign_in(local_x_sign_out);
-        local_routing.y_sign_in(local_y_sign_out);
-        local_routing.direction(local_direction);
+        // local_routing.x_in(local_x_in);
+        // local_routing.y_in(local_y_in);
+        // local_routing.x_sign_in(local_x_sign_in);
+        // local_routing.y_sign_in(local_y_sign_in);
+        // local_routing.direction(local_direction);
 
-        RoutingXY north_routing("north_routing");
-        north_routing.x_in(north_x_out);
-        north_routing.y_in(north_y_out);
-        north_routing.x_sign_in(north_x_sign_out);
-        north_routing.y_sign_in(north_y_sign_out);
-        north_routing.direction(north_direction);
+        // RoutingXY north_routing("north_routing");
+        // north_routing.x_in(north_x_out);
+        // north_routing.y_in(north_y_out);
+        // north_routing.x_sign_in(north_x_sign_out);
+        // north_routing.y_sign_in(north_y_sign_out);
+        // north_routing.direction(north_direction);
 
-        RoutingXY south_routing("south_routing");
-        south_routing.x_in(south_x_out);
-        south_routing.y_in(south_y_out);
-        south_routing.x_sign_in(south_x_sign_out);
-        south_routing.y_sign_in(south_y_sign_out);
-        south_routing.direction(south_direction);
+        // RoutingXY south_routing("south_routing");
+        // south_routing.x_in(south_x_out);
+        // south_routing.y_in(south_y_out);
+        // south_routing.x_sign_in(south_x_sign_out);
+        // south_routing.y_sign_in(south_y_sign_out);
+        // south_routing.direction(south_direction);
 
-        RoutingXY east_routing("east_routing");
-        east_routing.x_in(east_x_out);
-        east_routing.y_in(east_y_out);
-        east_routing.x_sign_in(east_x_sign_out);
-        east_routing.y_sign_in(east_y_sign_out);
-        east_routing.direction(east_direction);
+        // RoutingXY east_routing("east_routing");
+        // east_routing.x_in(east_x_out);
+        // east_routing.y_in(east_y_out);
+        // east_routing.x_sign_in(east_x_sign_out);
+        // east_routing.y_sign_in(east_y_sign_out);
+        // east_routing.direction(east_direction);
 
-        RoutingXY west_routing("west_routing");
-        west_routing.x_in(west_x_out);
-        west_routing.y_in(west_y_out);
-        west_routing.x_sign_in(west_x_sign_out);
-        west_routing.y_sign_in(west_y_sign_out);
-        west_routing.direction(west_direction);
+        // RoutingXY west_routing("west_routing");
+        // west_routing.x_in(west_x_out);
+        // west_routing.y_in(west_y_out);
+        // west_routing.x_sign_in(west_x_sign_out);
+        // west_routing.y_sign_in(west_y_sign_out);
+        // west_routing.direction(west_direction);
     }
 
     void init_arbitrations(){
@@ -311,7 +312,7 @@ SC_MODULE(Router) {
     }
 
     SC_CTOR(Router) {
-        SC_THREAD(initialize);
+        // SC_THREAD(initialize);
         SC_THREAD(rules);
         sensitive << local_x_in << local_y_in << local_x_sign_in << local_y_sign_in << local_message_in
                   << north_x_in << north_y_in << north_x_sign_in << north_y_sign_in << north_message_in
