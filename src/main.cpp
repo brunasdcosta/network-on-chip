@@ -6,6 +6,7 @@
 #include "../include/flux-control-in.h"
 #include "../include/flux-control-out.h"
 #include "../include/router.h"
+#include <string>
 
 int sc_main(int argc, char* argv[]) {
 
@@ -13,9 +14,9 @@ int sc_main(int argc, char* argv[]) {
     sc_signal<sc_uint<2>> local_x_in, local_y_in; // Valores X e Y de entrada.
     sc_signal<bool> local_x_sign_in, local_y_sign_in; // Sinais de X e Y de entrada. 0 - negativo; 1 - positivo.
     sc_signal<sc_uint<32>> local_message_in; // Mensagem de entrada.
-    sc_signal<sc_uint<2>> local_x_out, local_y_out; // Valores X e Y de saída.
-    sc_signal<bool> local_x_sign_out, local_y_sign_out; // Sinais de X e Y de saída. 0 - negativo; 1 - positivo.
-    sc_signal<sc_uint<32>> local_message_out; // Mensagem de saída.
+    sc_signal<sc_uint<2>, SC_MANY_WRITERS> local_x_out, local_y_out; // Valores X e Y de saída.
+    sc_signal<bool, SC_MANY_WRITERS> local_x_sign_out, local_y_sign_out; // Sinais de X e Y de saída. 0 - negativo; 1 - positivo.
+    sc_signal<sc_uint<32>, SC_MANY_WRITERS> local_message_out; // Mensagem de saída.
 
     // // Canal norte.
     sc_signal<sc_uint<2>> north_x_in, north_y_in; // Valores X e Y de entrada.
@@ -287,6 +288,21 @@ int sc_main(int argc, char* argv[]) {
     east_out.can_ship(east_arbitration_ship);
     east_out.shipping_request(east_shipping_request);
 
+
+    Router local_router("local_router");
+    local_router.x_in(local_x_in);
+    local_router.y_in(local_y_in);
+    local_router.x_sign_in(local_x_sign_in);
+    local_router.y_sign_in(local_y_sign_in);
+    local_router.write_(local_buffer_write);
+    local_router.request_to_receive(local_request_to_receive);
+    local_router.can_ship(local_arbitration_ship);
+    local_router.message_in(local_message_in);
+    local_router.x_out(local_x_out);
+    local_router.y_out(local_y_out);
+    local_router.x_sign_out(local_x_sign_out);
+    local_router.y_sign_out(local_y_sign_out);
+    local_router.message_out(local_message_out);
 
     sc_start();
 

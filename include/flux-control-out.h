@@ -17,6 +17,7 @@ SC_MODULE(HandshakeOUT) {
 
         if(request && cs){
             shipping_request.write(true);
+            std::cout << "Mensagem solicitada\n";
         }
         else{
             shipping_request.write(false);
