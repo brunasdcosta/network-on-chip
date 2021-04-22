@@ -10,6 +10,8 @@
 int sc_main(int argc, char* argv[]) {
 
 
+    sc_signal
+
     std::cout << "Iniciando...\n";
 
     Router router("Router");

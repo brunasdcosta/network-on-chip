@@ -8,7 +8,6 @@ SC_MODULE(Arbitration) {
     // Sinais que identificam quais canais de entrada estão solicitando sair pelo canal do árbitro.
     // Lembrando que uma mensagem não deve entrar e sair pelo mesmo canal. Assim, no máximo quatro desses sinais podem estar ativos ao mesmo tempo.
     sc_in<bool> local_channel, north_channel, south_channel, east_channel, west_channel;
-
     // Sinal que identifica que o árbitro escolheu um canal e quer enviar a mensagem.
     sc_out<bool> request_shipping;
 
@@ -21,6 +20,7 @@ SC_MODULE(Arbitration) {
      * 100 (4) - Canal oeste.  
      */
     sc_out<sc_uint<3>> chosen_channel;
+    
 
     void rules(){
 
