@@ -10,6 +10,7 @@
 
 int sc_main(int argc, char* argv[]) {
 
+    sc_clock clk("clk", 1, SC_NS, 0.5);
 
     sc_signal<sc_uint<2>> local_x_in, local_y_in; // Valores X e Y de entrada.
     sc_signal<bool> local_x_sign_in, local_y_sign_in; // Sinais de X e Y de entrada. 0 - negativo; 1 - positivo.
@@ -290,6 +291,7 @@ int sc_main(int argc, char* argv[]) {
 
 
     Router local_router("local_router");
+    local_router.clk(clk);
     local_router.x_in(local_x_in);
     local_router.y_in(local_y_in);
     local_router.x_sign_in(local_x_sign_in);
@@ -305,6 +307,7 @@ int sc_main(int argc, char* argv[]) {
     local_router.message_out(local_message_out);
 
     sc_start();
+
 
     std::cout << "Finalizado!\n";
 
