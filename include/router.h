@@ -53,21 +53,21 @@ SC_MODULE(Router) {
     sc_out<sc_uint<32>> west_message_out; // Mensagem de saída.
 
     // // Sinais de controle para dizer se o buffer pode ler da entrada ou escrever na saída.
-    sc_in<bool> local_buffer_read, north_buffer_read, south_buffer_read, east_buffer_read, west_buffer_read;
+    // sc_signal<bool> local_buffer_read, north_buffer_read, south_buffer_read, east_buffer_read, west_buffer_read;
     sc_in<bool> local_buffer_write, north_buffer_write, south_buffer_write, east_buffer_write, west_buffer_write;
 
     // // Sinais de controle para verificar se o buffer de cada canal está cheio.
-    sc_out<bool> local_buffer_full, north_buffer_full, south_buffer_full, east_buffer_full, west_buffer_full;
+    sc_signal<bool> local_buffer_full, north_buffer_full, south_buffer_full, east_buffer_full, west_buffer_full;
 
     // // Sinais de controle para definição da rota.
-    sc_out<sc_uint<3>> local_direction, north_direction, south_direction, east_direction, west_direction;
+    sc_signal<sc_uint<3>> local_direction, north_direction, south_direction, east_direction, west_direction;
 
     // // Sinais de controle que indicam para onde cada canal quer enviar.
-    sc_in<bool> local_to_north, local_to_south, local_to_east, local_to_west;
-    sc_in<bool> north_to_local, north_to_south, north_to_east, north_to_west;
-    sc_in<bool> south_to_local, south_to_north, south_to_east, south_to_west;
-    sc_in<bool> east_to_local, east_to_north, east_to_south, east_to_west;
-    sc_in<bool> west_to_local, west_to_north, west_to_south, west_to_east;
+    sc_signal<bool> local_to_north, local_to_south, local_to_east, local_to_west;
+    sc_signal<bool> north_to_local, north_to_south, north_to_east, north_to_west;
+    sc_signal<bool> south_to_local, south_to_north, south_to_east, south_to_west;
+    sc_signal<bool> east_to_local, east_to_north, east_to_south, east_to_west;
+    sc_signal<bool> west_to_local, west_to_north, west_to_south, west_to_east;
 
     // // Sinais de controle que indicam que cada árbitro escolheu um canal para enviar.
     sc_signal<bool> local_arbitration_ship, north_arbitration_ship, south_arbitration_ship, east_arbitration_ship, west_arbitration_ship;
@@ -107,7 +107,7 @@ SC_MODULE(Router) {
         local_buffer.y_out(local_y_out);
         local_buffer.x_sign_out(local_x_sign_out);
         local_buffer.y_sign_out(local_y_sign_out);
-        local_buffer.message_out(message_out);
+        local_buffer.message_out(local_message_out);
 
         Buffer north_buffer("north_buffer");
         north_buffer.x_in(north_x_in);
@@ -115,14 +115,14 @@ SC_MODULE(Router) {
         north_buffer.x_sign_in(north_x_sign_in);
         north_buffer.y_sign_in(north_y_sign_in);
         north_buffer.message_in(north_message_in);
-        north_buffer.read_(north_buffer_read);
+        north_buffer.read_(north_can_receive);
         north_buffer.write_(north_buffer_write);
         north_buffer.is_full(north_buffer_full);
         north_buffer.x_out(local_x_out);
         north_buffer.y_out(local_y_out);
         north_buffer.x_sign_out(local_x_sign_out);
         north_buffer.y_sign_out(local_y_sign_out);
-        north_buffer.message_out(message_out);
+        north_buffer.message_out(north_message_out);
 
         Buffer south_buffer("south_buffer");
         south_buffer.x_in(south_x_in);
@@ -130,14 +130,14 @@ SC_MODULE(Router) {
         south_buffer.x_sign_in(south_x_sign_in);
         south_buffer.y_sign_in(south_y_sign_in);
         south_buffer.message_in(south_message_in);
-        south_buffer.read_(south_buffer_read);
+        south_buffer.read_(south_can_receive);
         south_buffer.write_(south_buffer_write);
         south_buffer.is_full(south_buffer_full);
         south_buffer.x_out(local_x_out);
         south_buffer.y_out(local_y_out);
         south_buffer.x_sign_out(local_x_sign_out);
         south_buffer.y_sign_out(local_y_sign_out);
-        south_buffer.message_out(message_out);
+        south_buffer.message_out(south_message_out);
 
         Buffer east_buffer("east_buffer");
         east_buffer.x_in(east_x_in);
@@ -145,14 +145,14 @@ SC_MODULE(Router) {
         east_buffer.x_sign_in(east_x_sign_in);
         east_buffer.y_sign_in(east_y_sign_in);
         east_buffer.message_in(east_message_in);
-        east_buffer.read_(east_buffer_read);
+        east_buffer.read_(east_can_receive);
         east_buffer.write_(east_buffer_write);
         east_buffer.is_full(east_buffer_full);
         east_buffer.x_out(local_x_out);
         east_buffer.y_out(local_y_out);
         east_buffer.x_sign_out(local_x_sign_out);
         east_buffer.y_sign_out(local_y_sign_out);
-        east_buffer.message_out(message_out);
+        east_buffer.message_out(east_message_out);
 
         Buffer west_buffer("west_buffer");
         west_buffer.x_in(west_x_in);
@@ -160,14 +160,14 @@ SC_MODULE(Router) {
         west_buffer.x_sign_in(west_x_sign_in);
         west_buffer.y_sign_in(west_y_sign_in);
         west_buffer.message_in(west_message_in);
-        west_buffer.read_(west_buffer_read);
+        west_buffer.read_(west_can_receive);
         west_buffer.write_(west_buffer_write);
         west_buffer.is_full(west_buffer_full);
         west_buffer.x_out(local_x_out);
         west_buffer.y_out(local_y_out);
         west_buffer.x_sign_out(local_x_sign_out);
         west_buffer.y_sign_out(local_y_sign_out);
-        west_buffer.message_out(message_out);
+        west_buffer.message_out(west_message_out);
     }
 
     void init_routings(){
