@@ -1,6 +1,8 @@
 #ifndef FLUX_CONTROL_IN_H
 #define FLUX_CONTROL_IN_H
 
+#include <stdio.h>
+
 #include "systemc.h"
 
 SC_MODULE(HandshakeIN) {
@@ -10,6 +12,8 @@ SC_MODULE(HandshakeIN) {
     sc_out<bool> can_receive; // Sinal que identifica se pode receber a mensagem ou não.
 
     void rules(){
+
+        std::cout << "entra fc in" << std::endl;
 
         bool request = request_to_receive.read();
         bool full = buffer_is_full.read();
@@ -24,6 +28,8 @@ SC_MODULE(HandshakeIN) {
         } else{
             can_receive.write(false);
         }
+
+        std::cout << "sai fc in" << std::endl;
 
     }
 

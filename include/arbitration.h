@@ -1,6 +1,8 @@
 #ifndef ARBITRATION_H
 #define ARBITRATION_H
 
+#include <stdio.h>
+
 #include "systemc.h"
 
 SC_MODULE(Arbitration) {
@@ -23,6 +25,8 @@ SC_MODULE(Arbitration) {
     
 
     void rules(){
+
+         std::cout << "entra arbitro" << std::endl;
 
         if(local_channel.read()){
 
@@ -59,6 +63,8 @@ SC_MODULE(Arbitration) {
         }
 
         request_shipping.write(false);
+
+         std::cout << "sai arbitro" << std::endl;
 
     }
 

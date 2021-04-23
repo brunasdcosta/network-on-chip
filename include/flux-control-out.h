@@ -1,6 +1,8 @@
 #ifndef FLUX_CONTROL_OUT_H
 #define FLUX_CONTROL_OUT_H
 
+#include <stdio.h>
+
 #include "systemc.h"
 
 SC_MODULE(HandshakeOUT) {
@@ -11,18 +13,20 @@ SC_MODULE(HandshakeOUT) {
 
     void rules(){
 
+        std::cout << "entra fc out" << std::endl;
+
         // Apenas permite enviar o sinal se, e somente se, ele quer enviar e se pode enviar
         bool cs = can_ship.read();
         bool request = request_to_shipping.read();
 
         if(request && cs){
             shipping_request.write(true);
-            std::cout << "Mensagem solicitada\n";
         }
         else{
             shipping_request.write(false);
         }
 
+        std::cout << "sai fc out" << std::endl;
     }
 
     SC_CTOR(HandshakeOUT) {
